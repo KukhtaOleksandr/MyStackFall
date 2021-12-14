@@ -135,6 +135,8 @@ GameObject:
   - component: {fileID: 7256656}
   - component: {fileID: 7256655}
   - component: {fileID: 7256654}
+  - component: {fileID: 7256658}
+  - component: {fileID: 7256657}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -194,6 +196,48 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7256652}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &7256657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7256652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c608fa03d4686e547a6e6d34ee7e764f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7256658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7256652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: c3545072a2aadc349bad130d63de9a86, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,4 +565,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1472392259141080609, guid: 4090eb26e9a6243499e279e647626f17, type: 3}
+    - {fileID: 2921483753516227700, guid: 4090eb26e9a6243499e279e647626f17, type: 3}
+    - {fileID: 2874671439566420575, guid: 4090eb26e9a6243499e279e647626f17, type: 3}
+    - {fileID: 4210991483401878249, guid: 4090eb26e9a6243499e279e647626f17, type: 3}
+    - {fileID: 4678393687044765453, guid: 4090eb26e9a6243499e279e647626f17, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4090eb26e9a6243499e279e647626f17, type: 3}
