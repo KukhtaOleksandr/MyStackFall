@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Events;
 public class LevelSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject[] models;
     [SerializeField] private GameObject winningModel;
+    [SerializeField] private UnityEvent<GameObject> WinningPlatformCreated;
+    [SerializeField] private GameObject Level;
     private GameObject[] currentLevelModels = new GameObject[4];
     private GameObject temporaryModel, temporaryWinningModel;
     private int currentLevel = 1,currentLevelAddon=7;
@@ -29,9 +31,11 @@ public class LevelSpawner : MonoBehaviour
 
             temporaryModel.transform.position = new Vector3(0, i - 0.01f, 0);
             temporaryModel.transform.eulerAngles = new Vector3(0, i * 8, 0);
+            temporaryModel.transform.parent=Level.transform;
         }
         temporaryWinningModel=Instantiate(winningModel);
         temporaryWinningModel.transform.position = new Vector3(0, i - 0.01f, 0);
+        WinningPlatformCreated?.Invoke(temporaryWinningModel);
     }
     private void ModelSelection()
     {
