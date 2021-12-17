@@ -14,14 +14,14 @@ public class PlayerAttack : MonoBehaviour
         {
             if(other.gameObject.tag=="enemy"||other.gameObject.tag=="plane")
             {
-                Destroy(other.transform.parent.gameObject);
+               other.transform.parent.GetComponent<StackController>().ShatterAllParts();
             }
         }
         if(playerInput.IsHoldingTouch)
         {
             if(other.gameObject.tag=="enemy")
             {
-                Destroy(other.transform.parent.gameObject);
+                other.transform.parent.GetComponent<StackController>().ShatterAllParts();
             }
             if(other.gameObject.tag=="plane")
             {

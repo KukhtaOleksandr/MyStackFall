@@ -37,6 +37,6 @@ public class PlayerInvincibility : MonoBehaviour
             pressingTime=0;
             IsInvincible=false;
         }
-        print(IsInvincible);
+        //print(IsInvincible);
     }
 }
