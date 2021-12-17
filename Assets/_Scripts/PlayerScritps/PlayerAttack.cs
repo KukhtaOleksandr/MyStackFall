@@ -2,13 +2,22 @@
 
 public class PlayerAttack : MonoBehaviour
 {
-    PlayerMovement playerMovement;
+    private PlayerInput playerInput;
+    private PlayerInvincibility playerInvincibility;
     private void Awake()
     {
-        playerMovement = GetComponent<PlayerMovement>();
+        playerInput=GetComponent<PlayerInput>();
+        playerInvincibility=GetComponent<PlayerInvincibility>();
     }
     private void OnCollisionEnter(Collision other) {
-        if(playerMovement.IsHoldingTouch)
+        if(playerInvincibility.IsInvincible)
+        {
+            if(other.gameObject.tag=="enemy"||other.gameObject.tag=="plane")
+            {
+                Destroy(other.transform.parent.gameObject);
+            }
+        }
+        if(playerInput.IsHoldingTouch)
         {
             if(other.gameObject.tag=="enemy")
             {
