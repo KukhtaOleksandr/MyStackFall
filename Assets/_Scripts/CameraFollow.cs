@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+
 
 public class CameraFollow : MonoBehaviour
 {
@@ -21,9 +20,6 @@ public class CameraFollow : MonoBehaviour
             transform.position=new Vector3(transform.position.x,cameraPosition.y, -5);
         }
     }
-
-
-
 
     public void OnWinningPlatformCreated(GameObject WinningPlatform)
     {

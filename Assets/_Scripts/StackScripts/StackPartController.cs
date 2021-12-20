@@ -31,13 +31,7 @@ public class StackPartController : MonoBehaviour
         rigidbody.velocity = Vector3.down;
         Invoke("DestroyParent",1);
     }
-    /*
-    private void DestroyItself()
-    {
-        Destroy(gameObject);
-        Invoke("DestroyParent",2);
-    }
-    */
+
     private void DestroyParent()
     {
         if(transform.parent!=null)

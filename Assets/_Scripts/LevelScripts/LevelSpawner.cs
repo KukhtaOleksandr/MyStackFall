@@ -1,38 +1,41 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
+
+[RequireComponent(typeof(Level))]
 public class LevelSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject[] models;
     [SerializeField] private GameObject winningModel;
     [SerializeField] private UnityEvent<GameObject> WinningPlatformCreated;
     [SerializeField] private GameObject Level;
+    private Level level;
     private GameObject[] currentLevelModels = new GameObject[4];
     private GameObject temporaryModel, temporaryWinningModel;
-    private int currentLevel = 20, currentLevelAddon = 7;
+    private int currentLevelAddon = 7;
     private float i = 0;
-
+    private void Awake() {
+        level=Level.GetComponent<Level>();
+    }
     private void Start()
     {
         //Selecting all models from inspector
         ModelSelection();
         //Instantiating different difficulty models
-        for (i = 0; i > -currentLevel - currentLevelAddon; i -= 0.5f)
+        for (i = 0; i > -level.CurrentLevel - currentLevelAddon; i -= 0.5f)
         {
-            if (currentLevel <= 20)
+            if (level.CurrentLevel <= 20)
             {
                 ModelInstantiating(0, 2, 20);
             }
-            else if (currentLevel > 20 && currentLevel <= 50)
+            else if (level.CurrentLevel > 20 && level.CurrentLevel <= 50)
             {
                 ModelInstantiating(1, 3, 30);
             }
-            else if (currentLevel > 50 && currentLevel <= 100)
+            else if (level.CurrentLevel > 50 && level.CurrentLevel <= 100)
             {
                 ModelInstantiating(2, 4, 40);
             }
-            else if (currentLevel > 100)
+            else if (level.CurrentLevel > 100)
             {
                 ModelInstantiating(3, 4, 60);
             }

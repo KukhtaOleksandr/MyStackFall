@@ -1,14 +1,19 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
+[RequireComponent(typeof(Player),typeof(PlayerInput),typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
+    private Player player;
     private PlayerInput playerInput;
     private int movingDownSpeed = -600, movingUpSpeed = 600, maxUpDistance = 6;
     private Rigidbody rigidBody;
     private bool checkForCollisionExit;
+    public UnityEvent LevelFinished;
     
 
     private void Awake()
     {
+        player = GetComponent<Player>();
         playerInput=GetComponent<PlayerInput>();
         rigidBody = GetComponent<Rigidbody>();
     }
@@ -33,7 +38,6 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            
             checkForCollisionExit = true;
         }
     }
@@ -47,12 +51,19 @@ public class PlayerMovement : MonoBehaviour
                 checkForCollisionExit = false;
             }
         }
+        
     }
 
     private void StartedTouching()
     {
         if(playerInput.IsHoldingTouch)
-        rigidBody.velocity = new Vector3(0, movingDownSpeed * Time.fixedDeltaTime, 0);
+        {
+            if (player.PlayerState == Player.playerState.Prepare)
+                player.PlayerState=Player.playerState.Playing;
+            if (player.PlayerState == Player.playerState.Finished)
+                LevelFinished?.Invoke();
+            rigidBody.velocity = new Vector3(0, movingDownSpeed * Time.fixedDeltaTime, 0);
+        }
     }
 
 
