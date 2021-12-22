@@ -10,7 +10,7 @@ public class PlayerInput : MonoBehaviour
     }
     private void Start()
     {
-        playerInputSystem.Player.Click.performed += _ => IsHoldingTouch = true;
+        playerInputSystem.Player.Click.started += _ => IsHoldingTouch = true;
         playerInputSystem.Player.Click.canceled += _ => IsHoldingTouch = false;
     }
     private void OnEnable()

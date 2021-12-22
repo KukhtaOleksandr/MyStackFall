@@ -15,6 +15,13 @@ public class ScoreCounter : MonoBehaviour
         if(PlayerPrefs.GetInt("Score")>PlayerPrefs.GetInt("HighScore",0))
             PlayerPrefs.SetInt("HighScore",score);
     }
+    public void OnInvincibleTileDestroyed()
+    {
+        PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + 2);
+        score=PlayerPrefs.GetInt("Score");
+        if(PlayerPrefs.GetInt("Score")>PlayerPrefs.GetInt("HighScore",0))
+            PlayerPrefs.SetInt("HighScore",score);
+    }
     public void OnPlayerLose()
     {
         PlayerPrefs.SetInt("Score", 0);

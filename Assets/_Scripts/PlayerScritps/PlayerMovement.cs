@@ -3,13 +3,14 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Player),typeof(PlayerInput),typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
+    public UnityEvent PlayerJumped;
+    public UnityEvent LevelFinished;
     private Player player;
     private PlayerInput playerInput;
     private int movingDownSpeed = -600, movingUpSpeed = 600, maxUpDistance = 6;
     private Rigidbody rigidBody;
-    private bool checkForCollisionExit;
-    public UnityEvent LevelFinished;
-    
+    private bool checkForCollisionExit, invokeOnlyOnce=true;
+
 
     private void Awake()
     {
@@ -34,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!playerInput.IsHoldingTouch)
         {
+            PlayerJumped?.Invoke();
             rigidBody.velocity = new Vector3(0, movingUpSpeed * Time.fixedDeltaTime, 0);
         }
         else
@@ -61,7 +63,13 @@ public class PlayerMovement : MonoBehaviour
             if (player.PlayerState == Player.playerState.Prepare)
                 player.PlayerState=Player.playerState.Playing;
             if (player.PlayerState == Player.playerState.Finished)
+            {
+                if(invokeOnlyOnce==true)
+                {
                 LevelFinished?.Invoke();
+                invokeOnlyOnce=false;
+                }
+            }
             rigidBody.velocity = new Vector3(0, movingDownSpeed * Time.fixedDeltaTime, 0);
         }
     }

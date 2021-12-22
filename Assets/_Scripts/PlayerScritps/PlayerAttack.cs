@@ -4,7 +4,9 @@ using UnityEngine.Events;
 public class PlayerAttack : MonoBehaviour
 {
     public UnityEvent TileDestroyed;
+    public UnityEvent InvincibleTileDestroyed;
     public UnityEvent PlayerLose;
+    public UnityEvent PlayerWin;
     private Player player;
     private PlayerInput playerInput;
     private PlayerInvincibility playerInvincibility;
@@ -20,7 +22,7 @@ public class PlayerAttack : MonoBehaviour
         {
             if (other.gameObject.tag == "enemy" || other.gameObject.tag == "plane")
             {
-                TileDestroyed?.Invoke();
+                InvincibleTileDestroyed?.Invoke();
                 other.transform.parent.GetComponent<StackController>().ShatterAllParts();
             }
         }
@@ -39,6 +41,7 @@ public class PlayerAttack : MonoBehaviour
         }
         if (other.gameObject.tag=="Finish" && player.PlayerState==Player.playerState.Playing)
         {
+            PlayerWin?.Invoke();
             player.PlayerState=Player.playerState.Finished;
         }
     }
