@@ -9,7 +9,7 @@ public class Level : MonoBehaviour
         CurrentLevel=PlayerPrefs.GetInt("Level",1);
     }
     private void Start() {
-        Debug.Log(CurrentLevel);
+        Debug.Log("Level: "+CurrentLevel);
     }
     public void NextLevel()
     {

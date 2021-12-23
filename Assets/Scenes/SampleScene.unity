@@ -289,7 +289,7 @@ MonoBehaviour:
   TileDestroyed:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 688426710}
+      - m_Target: {fileID: 1899988481}
         m_TargetAssemblyTypeName: ScoreCounter, Assembly-CSharp
         m_MethodName: OnTileDestroyed
         m_Mode: 1
@@ -313,10 +313,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1730437786}
+        m_TargetAssemblyTypeName: LevelSliderFiller, Assembly-CSharp
+        m_MethodName: FillSlider
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   InvincibleTileDestroyed:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 688426710}
+      - m_Target: {fileID: 1899988481}
         m_TargetAssemblyTypeName: ScoreCounter, Assembly-CSharp
         m_MethodName: OnInvincibleTileDestroyed
         m_Mode: 1
@@ -340,10 +352,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1730437786}
+        m_TargetAssemblyTypeName: LevelSliderFiller, Assembly-CSharp
+        m_MethodName: FillSlider
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   PlayerLose:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 688426710}
+      - m_Target: {fileID: 1899988481}
         m_TargetAssemblyTypeName: ScoreCounter, Assembly-CSharp
         m_MethodName: OnPlayerLose
         m_Mode: 1
@@ -604,7 +628,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &630835673
 GameObject:
@@ -686,50 +710,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &688426709
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 688426711}
-  - component: {fileID: 688426710}
-  m_Layer: 0
-  m_Name: ScoreManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &688426710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 688426709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3db1b72237302644d8ee4f73f58ea197, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  score: 0
---- !u!4 &688426711
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 688426709}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
@@ -1316,8 +1296,9 @@ GameObject:
   - component: {fileID: 1383016749}
   - component: {fileID: 1383016748}
   - component: {fileID: 1383016747}
+  - component: {fileID: 1383016751}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: GameUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1397,13 +1378,28 @@ RectTransform:
   - {fileID: 1694018561}
   - {fileID: 1899988477}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1383016751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383016746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 254ae3079fbaf3f4e9bac5e707200902, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelSlider: {fileID: 1730437784}
+  currentLevelImg: {fileID: 1971590358}
+  nextLevelImg: {fileID: 804360291}
 --- !u!1 &1444635036
 GameObject:
   m_ObjectHideFlags: 0
@@ -1671,6 +1667,7 @@ GameObject:
   - component: {fileID: 1730437783}
   - component: {fileID: 1730437785}
   - component: {fileID: 1730437784}
+  - component: {fileID: 1730437786}
   m_Layer: 5
   m_Name: LevelSliderFill
   m_TagString: Untagged
@@ -1722,7 +1719,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.223
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -1735,6 +1732,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1730437782}
   m_CullTransparentMesh: 0
+--- !u!114 &1730437786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730437782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 582a2da5234440f4d9bac5b7e31f7e58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelSpawner: {fileID: 630835673}
+  player: {fileID: 7256652}
 --- !u!1 &1816498727
 GameObject:
   m_ObjectHideFlags: 0
@@ -1913,6 +1924,8 @@ GameObject:
   - component: {fileID: 1899988480}
   - component: {fileID: 1899988479}
   - component: {fileID: 1899988478}
+  - component: {fileID: 1899988482}
+  - component: {fileID: 1899988481}
   m_Layer: 5
   m_Name: Score
   m_TagString: Untagged
@@ -1975,7 +1988,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 6943078bd3df0bf4baac35471a90c7cc, type: 3}
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 1
@@ -1987,7 +2000,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 2341
+  m_Text: 0
 --- !u!222 &1899988480
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1996,6 +2009,45 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1899988476}
   m_CullTransparentMesh: 0
+--- !u!114 &1899988481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899988476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3db1b72237302644d8ee4f73f58ea197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ChangedScore:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1899988482}
+        m_TargetAssemblyTypeName: ScoreUI, Assembly-CSharp
+        m_MethodName: UpdateScoreUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1899988482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899988476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 708022dd4dcb3444b9eaf1658665f0a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1971590356
 GameObject:
   m_ObjectHideFlags: 0

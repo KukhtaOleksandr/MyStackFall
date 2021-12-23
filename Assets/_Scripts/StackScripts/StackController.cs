@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class StackController : MonoBehaviour
 {
@@ -9,6 +7,7 @@ public class StackController : MonoBehaviour
 
     public void ShatterAllParts()
     {
+        
         if(transform.parent!=null)
             transform.parent = null;
         

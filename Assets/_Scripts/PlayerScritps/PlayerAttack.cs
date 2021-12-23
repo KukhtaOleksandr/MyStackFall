@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
-[RequireComponent(typeof(Player),typeof(PlayerInput),typeof(PlayerInvincibility))]
+[RequireComponent(typeof(Player), typeof(PlayerInput), typeof(PlayerInvincibility))]
 public class PlayerAttack : MonoBehaviour
 {
     public UnityEvent TileDestroyed;
@@ -10,39 +10,59 @@ public class PlayerAttack : MonoBehaviour
     private Player player;
     private PlayerInput playerInput;
     private PlayerInvincibility playerInvincibility;
+    private bool isColission = true;
+    private int lastStackHashCode;
     private void Awake()
     {
-        player=GetComponent<Player>();
+        player = GetComponent<Player>();
         playerInput = GetComponent<PlayerInput>();
         playerInvincibility = GetComponent<PlayerInvincibility>();
     }
     private void OnCollisionEnter(Collision other)
     {
-        if (playerInvincibility.IsInvincible)
+        //метод onCollisionEnter по незрозумілій причині викликається декілька раз
+        //хоча повинен викликатись тільки один, тому ми можем запускаєм цей метод тільки
+        //тоді коли хешкоди колізій відрізняються
+        if (lastStackHashCode != 0)
         {
-            if (other.gameObject.tag == "enemy" || other.gameObject.tag == "plane")
+            if (lastStackHashCode != other.gameObject.GetHashCode())
             {
-                InvincibleTileDestroyed?.Invoke();
-                other.transform.parent.GetComponent<StackController>().ShatterAllParts();
+                isColission = true;
             }
         }
-        if (playerInput.IsHoldingTouch)
+
+        if (isColission)
         {
-            if (other.gameObject.tag == "enemy")
+            if (playerInput.IsHoldingTouch)
             {
-                TileDestroyed?.Invoke();
-                other.transform.parent.GetComponent<StackController>().ShatterAllParts();
+                isColission = false;
+                lastStackHashCode = other.gameObject.GetHashCode();
+                //Якщо гравець invincible він може знищувати любі перешкоди
+                if (playerInvincibility.IsInvincible)
+                {
+                    if (other.gameObject.tag == "enemy" || other.gameObject.tag == "plane")
+                    {
+                        InvincibleTileDestroyed?.Invoke();
+                        other.transform.parent.GetComponent<StackController>().ShatterAllParts();
+                    }
+                }
+                else if (other.gameObject.tag == "enemy")
+                {
+                    TileDestroyed?.Invoke();
+                    other.transform.parent.GetComponent<StackController>().ShatterAllParts();
+                }
+                else if (other.gameObject.tag == "plane")
+                {
+                    PlayerLose?.Invoke();
+                    Debug.Log("Gameover");
+                }
             }
-            if (other.gameObject.tag == "plane")
+            if (other.gameObject.tag == "Finish" && player.PlayerState == Player.playerState.Playing)
             {
-                PlayerLose?.Invoke();
-                Debug.Log("Gameover");
+                PlayerWin?.Invoke();
+                player.PlayerState = Player.playerState.Finished;
             }
-        }
-        if (other.gameObject.tag=="Finish" && player.PlayerState==Player.playerState.Playing)
-        {
-            PlayerWin?.Invoke();
-            player.PlayerState=Player.playerState.Finished;
+
         }
     }
 }

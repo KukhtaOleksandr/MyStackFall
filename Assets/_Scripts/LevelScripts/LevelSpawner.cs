@@ -4,6 +4,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Level))]
 public class LevelSpawner : MonoBehaviour
 {
+    public int TotalStacks{get;private set;} 
     [SerializeField] private GameObject[] models;
     [SerializeField] private GameObject winningModel;
     [SerializeField] private UnityEvent<GameObject> WinningPlatformCreated;
@@ -18,6 +19,8 @@ public class LevelSpawner : MonoBehaviour
     }
     private void Start()
     {
+        TotalStacks=0;
+        
         //Selecting all models from inspector
         ModelSelection();
         //Instantiating different difficulty models
@@ -39,7 +42,9 @@ public class LevelSpawner : MonoBehaviour
             {
                 ModelInstantiating(3, 4, 60);
             }
+            TotalStacks++;
         }
+        Debug.Log(TotalStacks);
         temporaryWinningModel = Instantiate(winningModel);
         temporaryWinningModel.transform.position = new Vector3(0, i - 0.01f, 0);
         WinningPlatformCreated?.Invoke(temporaryWinningModel);
@@ -52,7 +57,6 @@ public class LevelSpawner : MonoBehaviour
         temporaryModel.transform.eulerAngles = new Vector3(0, i * 8, 0);
         if (Random.Range(1, 101) <= maxRandomPercentage)
         {
-            
             temporaryModel.transform.eulerAngles += Vector3.up * 180;
         }
         temporaryModel.transform.parent = Level.transform;

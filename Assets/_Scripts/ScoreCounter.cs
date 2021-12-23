@@ -1,30 +1,40 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class ScoreCounter : MonoBehaviour
 {
-    [SerializeField] private int score = 0;
+    public UnityEvent ChangedScore;
+    [SerializeField] public int Score { get; set; }
     private void Awake()
     {
-        score = PlayerPrefs.GetInt("Score", 0);
+        Score = PlayerPrefs.GetInt("Score", 0);
     }
 
     public void OnTileDestroyed()
     {
-        PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + 1);
-        score=PlayerPrefs.GetInt("Score");
-        if(PlayerPrefs.GetInt("Score")>PlayerPrefs.GetInt("HighScore",0))
-            PlayerPrefs.SetInt("HighScore",score);
+        AddScore(1);
     }
     public void OnInvincibleTileDestroyed()
     {
-        PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + 2);
-        score=PlayerPrefs.GetInt("Score");
-        if(PlayerPrefs.GetInt("Score")>PlayerPrefs.GetInt("HighScore",0))
-            PlayerPrefs.SetInt("HighScore",score);
+        AddScore(2);
     }
     public void OnPlayerLose()
     {
         PlayerPrefs.SetInt("Score", 0);
-        score=PlayerPrefs.GetInt("Score");
+        Score = PlayerPrefs.GetInt("Score");
+        ChangedScore?.Invoke();
+    }
+    private void AddScore(int scoreAddition)
+    {
+        PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + scoreAddition);
+        Score = PlayerPrefs.GetInt("Score");
+
+        ChangedScore?.Invoke();
+
+        if (PlayerPrefs.GetInt("Score") > PlayerPrefs.GetInt("HighScore", 0))
+        {
+            PlayerPrefs.SetInt("HighScore", Score);
+        }
+
     }
 }
