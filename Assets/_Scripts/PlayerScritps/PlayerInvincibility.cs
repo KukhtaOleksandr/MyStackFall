@@ -1,8 +1,13 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Player), typeof(PlayerInput))]
 public class PlayerInvincibility : MonoBehaviour
 {
+    [SerializeField]private GameObject invincibilityFireEffect;
+    [SerializeField]private GameObject invincibilityBG;
+    [SerializeField]private Image invincibilityFill;
+
     private Player player;
     private PlayerInput playerInput;
     private float pressingTime;
@@ -19,9 +24,17 @@ public class PlayerInvincibility : MonoBehaviour
             if (IsInvincible)
             {
                 pressingTime -= Time.fixedDeltaTime * .35f;
+                if(!invincibilityFireEffect.activeInHierarchy)
+                {
+                    invincibilityFireEffect.SetActive(true);
+                }
             }
             else
             {
+                if(invincibilityFireEffect.activeInHierarchy)
+                {
+                    invincibilityFireEffect.SetActive(false);
+                }
                 if (playerInput.IsHoldingTouch)
                 {
                     pressingTime += Time.fixedDeltaTime * .8f;
@@ -32,16 +45,29 @@ public class PlayerInvincibility : MonoBehaviour
                 }
             }
 
+            if (pressingTime>=0.15f||invincibilityFill.color==Color.red)
+                invincibilityBG.SetActive(true);
+            else
+                invincibilityBG.SetActive(false);
+
             if (pressingTime >= 1)
             {
                 pressingTime = 1;
                 IsInvincible = true;
+                invincibilityFill.color=Color.red;
             }
             else if (pressingTime <= 0)
             {
                 pressingTime = 0;
                 IsInvincible = false;
+                invincibilityFill.color=Color.white;
             }
+
+            if(invincibilityBG.activeInHierarchy)
+            {
+                invincibilityFill.fillAmount=pressingTime/(float)1;
+            }
+
         }
     }
 }
