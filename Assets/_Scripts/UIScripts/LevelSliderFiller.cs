@@ -18,7 +18,7 @@ public class LevelSliderFiller : MonoBehaviour
     public void FillSlider()
     {
         currentStacksBroken++;
-        Debug.Log(currentStacksBroken);
+        //Debug.Log(currentStacksBroken);
         slider.fillAmount=(currentStacksBroken/(float)levelSpawnerSc.TotalStacks);
     }
 }

@@ -7,6 +7,10 @@ public class SceneLoader : MonoBehaviour
     {
         Invoke("Load",delay);
     }
+    public void LoadThisScene()
+    {
+        Load();
+    }
     private void Load()
     {
         SceneManager.LoadScene(0);

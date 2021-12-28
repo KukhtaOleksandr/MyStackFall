@@ -4,12 +4,16 @@ using UnityEngine.Events;
 public class PlayerMovement : MonoBehaviour
 {
     public UnityEvent PlayerJumped;
+    public UnityEvent<Collision> InCollision;
     public UnityEvent LevelFinished;
+    public UnityEvent PlayerStateEqualsPlaying;
     private Player player;
     private PlayerInput playerInput;
     private int movingDownSpeed = -600, movingUpSpeed = 600, maxUpDistance = 6;
+    private int lastStackHashCode;
     private Rigidbody rigidBody;
     private bool checkForCollisionExit, isCollision = true, invokeOnlyOnce = true;
+    private bool isUIWasClicked;
 
 
     private void Awake()
@@ -26,7 +30,9 @@ public class PlayerMovement : MonoBehaviour
         StartedTouching();
         //if max up position is reached then we start mowing ball down
         if (rigidBody.velocity.y > maxUpDistance)
+        {
             rigidBody.velocity = new Vector3(rigidBody.velocity.x, maxUpDistance, rigidBody.velocity.z);
+        }
         //if player doesn't hold touch anymore then we start moving ball up
         CheckForCollisionExit();
     }
@@ -35,9 +41,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isCollision)
         {
-            isCollision=false;
+            isCollision = false;
             if (!playerInput.IsHoldingTouch)
             {
+                InCollision?.Invoke(other);
                 PlayerJumped?.Invoke();
                 rigidBody.velocity = new Vector3(0, movingUpSpeed * Time.fixedDeltaTime, 0);
             }
@@ -45,42 +52,50 @@ public class PlayerMovement : MonoBehaviour
             {
                 checkForCollisionExit = true;
             }
+            Invoke("ChangeIsCollision",0.5f);
         }
     }
-    private void OnCollisionExit(Collision other) {
+    private void ChangeIsCollision()
+    {
         isCollision=true;
     }
     private void CheckForCollisionExit()
     {
         if (checkForCollisionExit)
         {
-            if (!playerInput.IsHoldingTouch)
+            if (!playerInput.IsHoldingTouch || isUIWasClicked)
             {
                 rigidBody.velocity = new Vector3(0, movingUpSpeed * Time.fixedDeltaTime, 0);
                 checkForCollisionExit = false;
             }
         }
-
     }
 
     private void StartedTouching()
     {
-        if (playerInput.IsHoldingTouch)
+        if (!isUIWasClicked)
         {
-            if (player.PlayerState == Player.playerState.Prepare)
-                player.PlayerState = Player.playerState.Playing;
-            if (player.PlayerState == Player.playerState.Finished)
+            if (playerInput.IsHoldingTouch)
             {
-                if (invokeOnlyOnce == true)
+                if (player.PlayerState == Player.playerState.Prepare)
                 {
-                    LevelFinished?.Invoke();
-                    invokeOnlyOnce = false;
+                    player.PlayerState = Player.playerState.Playing;
+                    PlayerStateEqualsPlaying?.Invoke();
                 }
+                if (player.PlayerState == Player.playerState.Finished)
+                {
+                    if (invokeOnlyOnce == true)
+                    {
+                        LevelFinished?.Invoke();
+                        invokeOnlyOnce = false;
+                    }
+                }
+                rigidBody.velocity = new Vector3(0, movingDownSpeed * Time.fixedDeltaTime, 0);
             }
-            rigidBody.velocity = new Vector3(0, movingDownSpeed * Time.fixedDeltaTime, 0);
         }
     }
-
-
-
+    public void OnUIWasClicked(bool IsUIWasClicked)
+    {
+        isUIWasClicked = IsUIWasClicked;
+    }
 }

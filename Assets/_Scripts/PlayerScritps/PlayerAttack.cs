@@ -10,7 +10,7 @@ public class PlayerAttack : MonoBehaviour
     private Player player;
     private PlayerInput playerInput;
     private PlayerInvincibility playerInvincibility;
-    private bool isColission = true;
+    private bool isColission = true, isUIWasClicked;
     private int lastStackHashCode;
     private void Awake()
     {
@@ -20,49 +20,57 @@ public class PlayerAttack : MonoBehaviour
     }
     private void OnCollisionEnter(Collision other)
     {
-        //метод onCollisionEnter по незрозумілій причині викликається декілька раз
-        //хоча повинен викликатись тільки один, тому ми можем запускаєм цей метод тільки
-        //тоді коли хешкоди колізій відрізняються
-        if (lastStackHashCode != 0)
+        if (!isUIWasClicked)
         {
-            if (lastStackHashCode != other.gameObject.GetHashCode())
+            //метод onCollisionEnter по незрозумілій причині викликається декілька раз
+            //хоча повинен викликатись тільки один, тому ми можем запускаєм цей метод тільки
+            //тоді коли хешкоди колізій відрізняються
+            if (lastStackHashCode != 0)
             {
-                isColission = true;
-            }
-        }
-
-        if (isColission)
-        {
-            if (playerInput.IsHoldingTouch)
-            {
-                isColission = false;
-                lastStackHashCode = other.gameObject.GetHashCode();
-                //Якщо гравець invincible він може знищувати любі перешкоди
-                if (playerInvincibility.IsInvincible)
+                if (lastStackHashCode != other.gameObject.GetHashCode())
                 {
-                    if (other.gameObject.tag == "enemy" || other.gameObject.tag == "plane")
+                    isColission = true;
+                }
+            }
+
+            //if (isColission)
+            //{
+                if (playerInput.IsHoldingTouch)
+                {
+                    //isColission = false;
+                    //lastStackHashCode = other.gameObject.GetHashCode();
+                    //Якщо гравець invincible він може знищувати любі перешкоди
+                    if (playerInvincibility.IsInvincible)
                     {
-                        InvincibleTileDestroyed?.Invoke();
+                        if (other.gameObject.tag == "enemy" || other.gameObject.tag == "plane")
+                        {
+                            InvincibleTileDestroyed?.Invoke();
+                            other.transform.parent.GetComponent<StackController>().ShatterAllParts();
+                        }
+                    }
+                    else if (other.gameObject.tag == "enemy")
+                    {
+                        TileDestroyed?.Invoke();
                         other.transform.parent.GetComponent<StackController>().ShatterAllParts();
                     }
+                    else if (other.gameObject.tag == "plane")
+                    {
+                        PlayerLose?.Invoke();
+                        player.PlayerState=Player.playerState.Died;
+                    }
                 }
-                else if (other.gameObject.tag == "enemy")
+                if (other.gameObject.tag == "Finish" && player.PlayerState == Player.playerState.Playing)
                 {
-                    TileDestroyed?.Invoke();
-                    other.transform.parent.GetComponent<StackController>().ShatterAllParts();
+                    PlayerWin?.Invoke();
+                    player.PlayerState = Player.playerState.Finished;
                 }
-                else if (other.gameObject.tag == "plane")
-                {
-                    PlayerLose?.Invoke();
-                    Debug.Log("Gameover");
-                }
-            }
-            if (other.gameObject.tag == "Finish" && player.PlayerState == Player.playerState.Playing)
-            {
-                PlayerWin?.Invoke();
-                player.PlayerState = Player.playerState.Finished;
-            }
-
+            //}
         }
     }
+    
+    public void OnUIWasClicked(bool IsUIWasClicked)
+    {
+        isUIWasClicked = IsUIWasClicked;
+    }
+    
 }
