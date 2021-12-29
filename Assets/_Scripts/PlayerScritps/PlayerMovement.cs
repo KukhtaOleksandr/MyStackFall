@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 checkForCollisionExit = true;
             }
-            Invoke("ChangeIsCollision",0.5f);
+            Invoke("ChangeIsCollision",0.2f);
         }
     }
     private void ChangeIsCollision()

@@ -31,6 +31,17 @@ public class @PlayerInputSystem : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""3c34cc3b-b876-4d30-8a1b-901be1805bf5"",
+                    ""path"": ""<Touchscreen>/primaryTouch/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""787da737-1585-4ee1-89c2-42c6f6f3e69c"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
